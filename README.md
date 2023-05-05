@@ -6,3 +6,4 @@
 
 
 Проект опубликован на GitHub Pages
+https://nightmarys.github.io/mesto/
