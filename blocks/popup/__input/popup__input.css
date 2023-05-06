@@ -1,20 +1,17 @@
 .popup__input {
     all: unset;
-    font-family: inherit;
     border-bottom: 1px solid #000000;
-    opacity: .2;
     width: 358px;
     height: 27px;
-    
-}
-
-.popup__input::placeholder {
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     color: #000000;
+    margin-bottom: 30px;
+    padding-bottom: 13px;
+    box-sizing: border-box;
 }
 
 @media screen and (max-width: 700px) {
