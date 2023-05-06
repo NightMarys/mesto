@@ -6,7 +6,7 @@ let popupName = document.querySelector('.popup__input_el_name');
 let popupJob = document.querySelector('.popup__input_el_job');
 let profileName = document.querySelector('.profile__title');
 let profileJob = document.querySelector('.profile__subtitle');
-let popupEditBtn = document.querySelector('.popup__save-btn');
+const popupEditBtn = document.querySelector('.popup__save-btn');
 
 
 
@@ -20,8 +20,8 @@ function openPopup() {
 function closePopup(evt) {
     const isOverlay = evt.target.classList.contains('popup');
     const isCloseBtn = evt.target.classList.contains('popup__close-btn');
-
-    if (isOverlay || isCloseBtn) {
+    const isSaveBtn = evt.target.classList.contains('popup__save-btn');
+    if (isOverlay || isCloseBtn || isSaveBtn) {
         popup.classList.remove('popup_opened'); 
     } 
 }
