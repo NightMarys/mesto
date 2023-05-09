@@ -1,7 +1,7 @@
 const openPopupProfileEditBtn = document.querySelector('.profile__edit-button_popup_opened');
-const popupCloseProfileBtn = document.querySelector('.popup__close-profile-btn');
-const popupCloseCardBtn = document.querySelector('.popup__close-card-btn');
-const popupCloseImageBtn = document.querySelector('.popup__close-image-btn');
+const popupCloseProfileBtn = document.querySelector('.popup__close-btn_type_profile');
+const popupCloseCardBtn = document.querySelector('.popup__close-btn_type_card');
+const popupCloseImageBtn = document.querySelector('.popup__close-btn_type_image');
 
 let formElement = document.querySelector('.popup__form');
 let popupName = document.querySelector('.popup__input_el_name');
@@ -16,9 +16,9 @@ const popupCardBtn = document.querySelector('.popup__save-card-btn');
 
 
 
-const profilePopup = document.querySelector('.popup__profile-edit');
-const cardsPopup = document.querySelector('.popup__add-card');
-const imagePopup = document.querySelector('.popup__view-image');
+const profilePopup = document.querySelector('.popup_type_profile-edit');
+const cardsPopup = document.querySelector('.popup_type_add-card');
+const imagePopup = document.querySelector('.popup_type_view-image');
 
 const openImagePopup = document.querySelector('.element__image');
 
