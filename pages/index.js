@@ -3,18 +3,22 @@ const popupCloseProfileBtn = document.querySelector('.popup__close-btn_type_prof
 const popupCloseCardBtn = document.querySelector('.popup__close-btn_type_card');
 const popupCloseImageBtn = document.querySelector('.popup__close-btn_type_image');
 
-let formElement = document.querySelector('.popup__form');
-let popupName = document.querySelector('.popup__input_el_name');
-let popupJob = document.querySelector('.popup__input_el_job');
+const profileForm = document.querySelector('.popup__form_type_profile');
+const cardForm = document.querySelector('.popup__form_type_place');
 
-let profileName = document.querySelector('.profile__title');
-let profileJob = document.querySelector('.profile__subtitle');
+const popupName = document.querySelector('.popup__input_el_name');
+const popupJob = document.querySelector('.popup__input_el_job');
+const popupPhotoName = document.querySelector('.popup__input_el_place');
+const popupPhotoUrl = document.querySelector('.popup__input_el_url');
+
+const profileName = document.querySelector('.profile__title');
+const profileJob = document.querySelector('.profile__subtitle');
 
 const popupEditBtn = document.querySelector('.popup__save-btn');
 const addCardBtn = document.querySelector('.profile__add-button');
 const popupCardBtn = document.querySelector('.popup__save-card-btn');
 
-
+const closeButtons = document.querySelectorAll('.popup__close-btn');
 
 const profilePopup = document.querySelector('.popup_type_profile-edit');
 const cardsPopup = document.querySelector('.popup_type_add-card');
@@ -108,75 +112,53 @@ initialCards.forEach((photo) => {
 
 createPhotoElement(initialCards);
 
-
-popupCardBtn.addEventListener('click', addCard = (evt) =>{
+console.log(popupPhotoName.value);
+function addCard (evt) {
     evt.preventDefault();
-    const newCard = photoTemplate.content.querySelector('.element').cloneNode(true);
-    const popupPhotoName = document.querySelector('.popup__input_el_place').value;
-    const popupPhotoUrl = document.querySelector('.popup__input_el_url').value;
-
-    const cardImage = newCard.querySelector('.element__image');
-    const cardTitle = newCard.querySelector('.element__title');
-
-    cardTitle.textContent = popupPhotoName;
-    cardImage.src = popupPhotoUrl;
-    cardImage.alt = popupPhotoName;
-
-    createPhotoElement(newCard);
+    const cardElement = {};
+    cardElement.name = popupPhotoName.value;
+    cardElement.link = popupPhotoUrl.value;
     
-    cardsContainer.prepend(newCard);
-
+    cardsContainer.prepend(createPhotoElement(cardElement));
+    evt.target.reset();
     closePopup(cardsPopup);
-})
+}
 
-
-
-popupName.value = profileName.textContent;
-popupJob.value = profileJob.textContent;
-
-
+cardForm.addEventListener('submit', addCard);
 
 
 function openPopup(popup) {   
     popup.classList.add('popup_opened');
 }
 
-
-
 function closePopup(popup) {
     popup.classList.remove('popup_opened'); 
 }
 
 openPopupProfileEditBtn.addEventListener('click', () => {
+    popupName.value = profileName.textContent;
+    popupJob.value = profileJob.textContent;
     openPopup(profilePopup);
 });
 
 addCardBtn.addEventListener('click', () => {
+
     openPopup(cardsPopup);
 });
 
 
-popupCloseProfileBtn.addEventListener('click', () => {
-    closePopup(profilePopup);
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
 });
-
-popupCloseCardBtn.addEventListener('click', () => {
-    closePopup(cardsPopup);
-});
-
-popupCloseImageBtn.addEventListener('click', () => {
-    closePopup(imagePopup);
-});
-
 
 
 function handleFormSubmit (evt) {
     evt.preventDefault();
-    popupName = document.querySelector('.popup__input_el_name').value;
-    popupJob = document.querySelector('.popup__input_el_job').value;
 
-    profileName.textContent = popupName;
-    profileJob.textContent = popupJob;
+    profileName.textContent = popupName.value;
+    profileJob.textContent = popupJob.value;
+    evt.target.reset();
     closePopup(profilePopup);
 }
-formElement.addEventListener('submit', handleFormSubmit);
+profileForm.addEventListener('submit', handleFormSubmit);
