@@ -14,7 +14,7 @@ const popupPhotoUrl = document.querySelector('.popup__input_el_url');
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__subtitle');
 
-const popupEditBtn = document.querySelector('.popup__save-btn');
+
 const addCardBtn = document.querySelector('.profile__add-button');
 const popupCardBtn = document.querySelector('.popup__save-card-btn');
 
@@ -26,9 +26,10 @@ const imagePopup = document.querySelector('.popup_type_view-image');
 
 const openImagePopup = document.querySelector('.element__image');
 
-const popupImage= document.querySelector('.popup__image');
-const popupPhotoTitle= document.querySelector('.popup__photo-title');
+const popupImage = document.querySelector('.popup__image');
+const popupPhotoTitle = document.querySelector('.popup__photo-title');
 
+const popup = document.querySelector('.popup');
 
 const initialCards = [
     {
@@ -112,7 +113,6 @@ initialCards.forEach((photo) => {
 
 createPhotoElement(initialCards);
 
-console.log(popupPhotoName.value);
 function addCard (evt) {
     evt.preventDefault();
     const cardElement = {};
@@ -127,6 +127,8 @@ function addCard (evt) {
 cardForm.addEventListener('submit', addCard);
 
 
+const popupList = Array.from(document.querySelectorAll('.popup'));
+
 function openPopup(popup) {   
     popup.classList.add('popup_opened');
 }
@@ -134,6 +136,23 @@ function openPopup(popup) {
 function closePopup(popup) {
     popup.classList.remove('popup_opened'); 
 }
+
+function handleClosePopup(evt) {
+    const isOverlay = evt.target.classList.contains('popup_opened');
+    const isCloseBtn = evt.target.classList.contains('popup__close-btn');
+    
+    if (isOverlay || isCloseBtn) {
+        popupList.forEach(closePopup)
+    } 
+}
+document.addEventListener('click', handleClosePopup)
+
+
+document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+        popupList.forEach(closePopup)
+    }
+  }); 
 
 openPopupProfileEditBtn.addEventListener('click', () => {
     popupName.value = profileName.textContent;
@@ -144,12 +163,6 @@ openPopupProfileEditBtn.addEventListener('click', () => {
 addCardBtn.addEventListener('click', () => {
 
     openPopup(cardsPopup);
-});
-
-
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
 });
 
 
