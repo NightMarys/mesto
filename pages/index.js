@@ -1,3 +1,4 @@
+
 const buttonOpenPopupProfile = document.querySelector('.profile__edit-button_popup_opened');
 
 const profileForm = document.querySelector('.popup__form_type_profile');
@@ -77,7 +78,7 @@ const createPhotoElement = (photoData) => {
 
     photoTitle.textContent = photoData.name;
     photoImage.src = photoData.link;
-    photoImage.alt = photoData.alt;
+    photoImage.alt = photoData.name;
 
     const handleLike = (evt) => {
         likeBtn.classList.toggle('element__icon_active');
@@ -93,10 +94,6 @@ const createPhotoElement = (photoData) => {
         popupPhotoTitle.textContent = photoData.name;
         openPopup(imagePopup)
     }
-
-    photoTitle.textContent = photoData.name;
-    photoImage.src = photoData.link;
-    photoImage.alt = photoData.alt;
 
 
     likeBtn.addEventListener('click', () => handleLike(photoData))
@@ -149,7 +146,8 @@ function handleClosePopup(evt) {
     const isCloseBtn = evt.target.classList.contains('popup__close-btn');
     
     if (isOverlay || isCloseBtn) {
-        popupList.forEach(closePopup)
+        const popupOpened = document.querySelector('.popup_opened');
+        closePopup(popupOpened);
     } 
 }
 document.addEventListener('click', handleClosePopup)
@@ -165,13 +163,11 @@ const closeByEsc = (evt) => {
 buttonOpenPopupProfile.addEventListener('click', () => {
     popupName.value = profileName.textContent;
     popupJob.value = profileJob.textContent;
-   setSubmitButtonState(btnSubmitProfile);
     openPopup(profilePopup);
 });
 
 buttonAddCard.addEventListener('click', () => {
     openPopup(cardsPopup);
-    setSubmitButtonState(btnSubmitPlace);
 });
 
 
