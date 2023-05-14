@@ -164,10 +164,12 @@ buttonOpenPopupProfile.addEventListener('click', () => {
     popupName.value = profileName.textContent;
     popupJob.value = profileJob.textContent;
     openPopup(profilePopup);
+    setSubmitButtonState (btnSubmitProfile, {inactiveButtonClass: 'popup__save-btn_inactive'});
 });
 
 buttonAddCard.addEventListener('click', () => {
     openPopup(cardsPopup);
+    setSubmitButtonState (btnSubmitPlace, {inactiveButtonClass: 'popup__save-btn_inactive'});
 });
 
 
