@@ -67,7 +67,6 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     buttonElement.classList.add(formClassList.inactiveButtonClass);
       buttonElement.setAttribute('disabled', true);
     }
-  
 
 
   enableValidation(formClassList = {

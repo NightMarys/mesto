@@ -57,7 +57,6 @@ const imagePopup = document.querySelector('.popup_type_view-image');
 const popupImage = document.querySelector('.popup__image');
 const popupPhotoTitle = document.querySelector('.popup__photo-title');
 
-//const btnSubmit = document.querySelector('.popup__save-btn')
 const btnSubmitProfile = document.querySelector('.popup__profile-btn');
 const btnSubmitPlace = document.querySelector('.popup__place-btn');
 
