@@ -57,7 +57,9 @@ const imagePopup = document.querySelector('.popup_type_view-image');
 const popupImage = document.querySelector('.popup__image');
 const popupPhotoTitle = document.querySelector('.popup__photo-title');
 
-const btnSubmit = document.querySelector('.popup__save-btn')
+//const btnSubmit = document.querySelector('.popup__save-btn')
+const btnSubmitProfile = document.querySelector('.popup__profile-btn');
+const btnSubmitPlace = document.querySelector('.popup__place-btn');
 
 
 
@@ -133,7 +135,6 @@ cardForm.addEventListener('submit', addCard);
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
 function openPopup(popup) {
-    
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', closeByEsc); 
     
@@ -165,13 +166,13 @@ const closeByEsc = (evt) => {
 buttonOpenPopupProfile.addEventListener('click', () => {
     popupName.value = profileName.textContent;
     popupJob.value = profileJob.textContent;
-    setSubmitButtonState(btnSubmit);
+   setSubmitButtonState(btnSubmitProfile);
     openPopup(profilePopup);
 });
 
 buttonAddCard.addEventListener('click', () => {
-    setSubmitButtonState(btnSubmit);
-    openPopup(cardsPopup);  
+    openPopup(cardsPopup);
+    setSubmitButtonState(btnSubmitPlace);
 });
 
 
