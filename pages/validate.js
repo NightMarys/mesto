@@ -1,11 +1,3 @@
-const formClassList = {
-  formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__save-btn',
-    inactiveButtonClass: 'popup__save-btn_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_active'
-}
 
 const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -28,7 +20,8 @@ const showInputError = (formElement, inputElement, errorMessage) => {
       hideInputError(formElement, inputElement);
     }
   };
-  
+
+
   const hasInvalidInput = (inputList) => {
     return inputList.some((inputElement) => {
       return !inputElement.validity.valid;
@@ -37,8 +30,10 @@ const showInputError = (formElement, inputElement, errorMessage) => {
   const toggleButtonState = (inputList, buttonElement) => {
     if (hasInvalidInput(inputList)) {
       buttonElement.classList.add(formClassList.inactiveButtonClass);
+      buttonElement.setAttribute('disabled', true);
     } else {
       buttonElement.classList.remove(formClassList.inactiveButtonClass);
+      buttonElement.removeAttribute('disabled');
     }
   };
   
@@ -55,7 +50,8 @@ const showInputError = (formElement, inputElement, errorMessage) => {
       });
     });
   };
-  
+
+
   const enableValidation = () => {
     const formList = Array.from(document.querySelectorAll(formClassList.formSelector));
     formList.forEach((formElement) => {
@@ -66,4 +62,19 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     });
   };
   
-  enableValidation(formClassList);
+  
+  function setSubmitButtonState(buttonElement) {
+    buttonElement.classList.add(formClassList.inactiveButtonClass);
+      buttonElement.setAttribute('disabled', true);
+    }
+  
+
+
+  enableValidation(formClassList = {
+    formSelector: '.popup__form',
+      inputSelector: '.popup__input',
+      submitButtonSelector: '.popup__save-btn',
+      inactiveButtonClass: 'popup__save-btn_inactive',
+      inputErrorClass: 'popup__input_type_error',
+      errorClass: 'popup__input-error_active'
+  });
