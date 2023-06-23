@@ -1,6 +1,5 @@
 import {FormValidator} from './FormValidator.js';
-import Card from './card.js';
-
+import Card from './Card.js';
 
 const buttonOpenPopupProfile = document.querySelector('.profile__edit-button_popup_opened');
 
@@ -22,7 +21,7 @@ const config = {
    };
 
 
-   
+
 const initialCards = [
     {
       name: 'Архыз',
@@ -87,15 +86,20 @@ function closePopup(popup) {
     document.removeEventListener('keydown', closeByEsc);
 }
 
-function handleClosePopup(evt) {
-    const isOverlay = evt.target.classList.contains('popup_opened');
-    const isCloseBtn = evt.target.classList.contains('popup__close-btn');
-    
-    if (isOverlay || isCloseBtn) {
-        const popupOpened = document.querySelector('.popup_opened');
-        closePopup(popupOpened);
-    } 
+const handleClosePopup = () => {
+  popupList.forEach(popup => {
+      popup.addEventListener('click', evt => {
+          if(evt.target.classList.contains('popup_opened')) {
+              closePopup(popup);
+          }
+          if (evt.target.classList.contains('popup__close-btn')) {
+              closePopup(popup);
+          }
+      })
+  })
 }
+
+
 document.addEventListener('click', handleClosePopup)
 
 const closeByEsc = (evt) => {
@@ -108,8 +112,8 @@ const closeByEsc = (evt) => {
 
 
 const makeCard = element => {
-    const newCard = new Card(element, '#photo-template');
-    const cardElement = newCard.generateCard();
+    const cardElement = new Card (element, '#photo-template').generateCard();
+    //const cardElement = newCard.generateCard();
     return cardElement;
 
   }
@@ -118,8 +122,6 @@ const makeCard = element => {
     const photoElement = makeCard (item);
     cardsContainer.prepend(photoElement);
   })
-
-
 
   function addCard (evt) {
     evt.preventDefault();
@@ -150,6 +152,7 @@ buttonOpenPopupProfile.addEventListener('click', () => {
 });
 
 buttonAddCard.addEventListener('click', () => {
+  cardValidate.resetFormValidation();
     openPopup(cardsPopup);
 });
 
