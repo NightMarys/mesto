@@ -100,7 +100,7 @@ const handleClosePopup = () => {
 }
 
 
-document.addEventListener('click', handleClosePopup)
+handleClosePopup();
 
 const closeByEsc = (evt) => {
     if (evt.key === 'Escape') {
@@ -113,7 +113,6 @@ const closeByEsc = (evt) => {
 
 const makeCard = element => {
     const cardElement = new Card (element, '#photo-template').generateCard();
-    //const cardElement = newCard.generateCard();
     return cardElement;
 
   }
