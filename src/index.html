@@ -15,7 +15,7 @@
     <main class="content">
       <section class="profile">
         <div class="profile__descrition">
-        <img src="<%=require(./images/Cousteau.jpg)%>" alt="Жак-Ив Кусто" class="profile__image">
+        <img  src="./images/Cousteau.jpg" alt="Жак-Ив Кусто" class="profile__image">
         <div class="profile__text">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <h2 class="profile__subtitle">Исследователь океана</h2>
@@ -62,7 +62,7 @@
   <div class="popup popup_type_view-image">
     <div class="popup__image-container">
       <button class="popup__close-btn" type="button"></button>
-      <img class="popup__image">
+      <img class="popup__image" src="#" alt="">
       <p class="popup__photo-title"></p>
     </div>
   </div>
@@ -71,17 +71,13 @@
   <template id="photo-template">
     <li class="element">
       <button class="element__delete-btn" type="button"></button>
-      <img class="element__image">
+      <img class="element__image" src="#" alt="">
       <div class="element__text">
         <h2 class="element__title"></h2>
         <button class="element__icon" type="button"></button>
       </div>
     </li>
   </template>
-
-  
- 
-
   
 </body>
 </html>
