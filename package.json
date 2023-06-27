@@ -1,0 +1,30 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "Проект работы над сервисом Mesto: интерактивной страницей с возможностью добавления и удаления фотографий и их оценки по дизайн-макету в Фигме.  Благодаря использованию адаптивной верстки проект корректно отображается на экранах популярных размеров от мобильных устройств до стандартных ноутбуков. С помощью JavaScript реализовано открытие и закрытие диалогового окна с возможностью вносить изменения в поля форм и редактировать информацию о себе.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "author": "Mary",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "autoprefixer": "^10.4.14",
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.8.1",
+    "cssnano": "^6.0.1",
+    "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
+    "postcss-loader": "^7.3.3",
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "core-js": "^3.31.0"
+  }
+}

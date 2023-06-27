@@ -1,10 +1,19 @@
-import {FormValidator} from './FormValidator.js';
-import Card from './Card.js';
+import './index.css'
+
+import {FormValidator} from '../components/FormValidator.js';
+import Card from '../components/card.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+
+
 
 const buttonOpenPopupProfile = document.querySelector('.profile__edit-button_popup_opened');
 
 const profileForm = document.querySelector('.popup__form_type_profile');
 const cardForm = document.querySelector('.popup__form_type_place');
+//const submitButton = document.querySelector('.popup__save-btn');
 
 const popupName = document.querySelector('.popup__input_el_name');
 const popupJob = document.querySelector('.popup__input_el_job');
@@ -58,16 +67,35 @@ const initialCards = [
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__subtitle');
 
-
+const popupImage = document.querySelector('.popup__image');
 const buttonAddCard = document.querySelector('.profile__add-button');
-
-const closeButtons = document.querySelectorAll('.popup__close-btn');
-
-const profilePopup = document.querySelector('.popup_type_profile-edit');
-const cardsPopup = document.querySelector('.popup_type_add-card');
-
 const btnSubmitProfile = document.querySelector('.popup__profile-btn');
 const btnSubmitPlace = document.querySelector('.popup__place-btn');
+const closeButtons = document.querySelectorAll('.popup__close-btn');
+
+const userProfile = new UserInfo({
+  name: profileName,
+  about: profileJob
+});
+
+const profilePopup = new PopupWithForm ( document.querySelector('.popup_type_profile-edit'), {
+  handleFormSubmit: (formData) => {
+    userProfile.setUserInfo(formData);
+}
+});
+profilePopup.setEventListeners();
+
+const cardsPopup = new PopupWithForm(document.querySelector('.popup_type_add-card'), {
+  handleFormSubmit: (formData) => {
+  }
+} 
+);
+cardsPopup.setEventListeners();
+const imagePopup = new PopupWithImage (document.querySelector('.popup_type_view-image'));
+imagePopup.setEventListeners();
+
+
+
 const photoTemplate = document.getElementById('photo-template'); 
  const likeBtn = photoTemplate.querySelector('.element__icon');
 
@@ -75,7 +103,7 @@ const cardsContainer = document.querySelector('.elements__group');
 
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
-export function openPopup(popup) {
+/*export function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', closeByEsc); 
     
@@ -109,10 +137,25 @@ const closeByEsc = (evt) => {
     }
 }
 
+*/
 
 
-const makeCard = element => {
-    const cardElement = new Card (element, '#photo-template').generateCard();
+const sectionCards = new Section({
+  items: initialCards,
+  renderer: (item) => sectionCards.addItem(makeCard(item))
+}, cardsContainer);
+
+
+
+
+const makeCard = (data) => {
+    const cardElement = new Card (data, '#photo-template', {
+      handleCardClick: () => {
+
+        imagePopup.open();
+      }
+    }
+      ).generateCard();
     return cardElement;
 
   }
@@ -130,7 +173,7 @@ const makeCard = element => {
     
     cardsContainer.prepend(makeCard (cardContainer));
     evt.target.reset();
-    closePopup(cardsPopup);
+    cardsPopup.close();
     }
 
     cardForm.addEventListener('submit', addCard);
@@ -145,14 +188,15 @@ cardValidate.enableValidation();
 
 
 buttonOpenPopupProfile.addEventListener('click', () => {
-    popupName.value = profileName.textContent;
-    popupJob.value = profileJob.textContent;
-    openPopup(profilePopup);
+  const user = userProfile.getUserInfo();
+  popupName.value = user.name;
+  popupJob.value = user.about;
+    profilePopup.open();
 });
 
 buttonAddCard.addEventListener('click', () => {
   cardValidate.resetFormValidation();
-    openPopup(cardsPopup);
+    cardsPopup.open();
 });
 
 
@@ -161,8 +205,7 @@ function handleProfileFormSubmit (evt) {
 
     profileName.textContent = popupName.value;
     profileJob.textContent = popupJob.value;
-    evt.target.reset();
-    closePopup(profilePopup);
+    
 }
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 
