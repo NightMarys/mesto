@@ -20,7 +20,6 @@ const avatarForm = document.querySelector('.popup__form_type_avatar');
 
 const inputNameFormPopupProfile = document.querySelector('.popup__input_el_name');
 const inputJobFormPopupProfile = document.querySelector('.popup__input_el_job');
-const inputFormPopupAvatar = document.querySelector('.popup__input_el_avatar');
 
 const saveBtnProfile = document.querySelector('.popup__profile-btn');
 const saveBtnAvatar = document.querySelector('.popup__avatar-btn');
@@ -56,9 +55,10 @@ const config = {
 
     function renderLoading(isLoading, button) {
       if (isLoading) {
-        button.textContent = "Сохранение..";
-      } else {
-        button.textContent = "Сохранить";
+        button.textContent = 'Сохранение...';
+      }
+      else { 
+        button.textContent = 'Сохранить';
       }
     }
 
@@ -67,7 +67,8 @@ const buttonAddCard = document.querySelector('.profile__add-button');
 
 const userProfile = new UserInfo({
   userNameSelector: 'profile__title',
-  userDescriptionSelector: 'profile__subtitle'
+  userDescriptionSelector: 'profile__subtitle',
+  userAvatar: 'profile__image'
 });
 
 const profilePopup = new PopupWithForm ( document.querySelector('.popup_type_profile-edit'), {
@@ -98,7 +99,7 @@ const avatarPopup = new PopupWithForm ( document.querySelector('.popup_type_upda
     renderLoading(true, saveBtnAvatar);
     api.patchAvatar(formData)
     .then(formData => {
-      profileAvatar.style.backgroundImage = `url(${formData.avatar})`;
+      userProfile.setUserAvatar(formData);
       avatarPopup.close();
     })
     .catch(err => {
@@ -117,8 +118,7 @@ const cardsPopup = new PopupWithForm(document.querySelector('.popup_type_add-car
     renderLoading(true, saveBtnCard);
     api.postNewCard(data)
     .then(data => {
-      const card = makeCard(data);
-    const cardElement = card.generateCard();
+      const cardElement = makeCard(data);
     sectionCards.addItem(cardElement);
     cardsPopup.close();
     })
@@ -127,6 +127,7 @@ const cardsPopup = new PopupWithForm(document.querySelector('.popup_type_add-car
     })
     .finally(() => {
       renderLoading(false, saveBtnCard);
+      saveBtnCard.textContent = 'Создать';
     })
   }
 });
@@ -141,15 +142,14 @@ const cardsContainer = document.querySelector('.elements__group');
 
 const sectionCards = new Section({
   renderer: (item) => {
-    const card = makeCard(item);
-    const cardElement = card.generateCard();
+    const cardElement = makeCard(item);
     sectionCards.addItem(cardElement)
   }
 }, cardsContainer);
 
 
 function makeCard (data) {
-    const cardElement = new Card ({
+    const card = new Card ({
       data: data, 
       userId: myId,
       cardSelector: '#photo-template', 
@@ -159,8 +159,8 @@ function makeCard (data) {
       handleLike: () => {
         api.putLike(data._id)
             .then((data) => {
-              cardElement.counterLike(data.likes);
-              cardElement.toggleLike();
+              card.counterLike(data.likes);
+              card.toggleLike();
             })
             .catch((err) => {
               console.log(err);
@@ -169,8 +169,8 @@ function makeCard (data) {
       handleLikeRemover: () => {
         api.deleteLike(data._id)
         .then((data) => {
-          cardElement.counterLike(data.likes);
-          cardElement.toggleLike();
+          card.counterLike(data.likes);
+          card.toggleLike();
         })
         .catch((err) => {
           console.log(err);
@@ -178,14 +178,19 @@ function makeCard (data) {
       },
       deleteCardHandler: () => {
         deleteCardPopup.open();
-        deleteCardPopup.setFormSubmitHandler((evt) => {
-          evt.preventDefault();
-          cardElement.remove();
-         deleteCardPopup.close()
-       })
+        deleteCardPopup.setFormSubmitHandler(() => {
+          api.deleteCard(data._id)
+                .then(() => {
+                  card.removeCard();
+                  deleteCardPopup.close();
+                })
+                .catch((err) => {
+                  console.log(err);
+                })
+          })
       }
-});
-    return cardElement;
+    });
+    return card.generateCard();
   }
 
 
@@ -215,5 +220,6 @@ buttonAddCard.addEventListener('click', () => {
 });
 
 buttonChangeAvatar.addEventListener('click', () => {
+  avatarValidate.resetFormValidation();
   avatarPopup.open();
 });

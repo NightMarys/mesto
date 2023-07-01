@@ -48,6 +48,16 @@ export default class Card {
   };
 
 
+  isLiked() {
+    if (this._likes.some((like) => like._id === this._myId)) {
+      this._element.querySelector('.element__icon').classList.add('element__icon_active');
+    }
+  }
+
+  removeCard() {
+    this._element.remove();
+  } 
+
   _setEventListeners() {
     this._likeButton = this._element.querySelector('.element__icon');
     this._deleteButton = this._element.querySelector('.element__delete-btn');
@@ -80,6 +90,7 @@ export default class Card {
     this._nameElement.textContent = this._name;
     this._likesCounter = this._element.querySelector('.element__likes-counter');
     this._likesCounter.textContent = this._likes.length;
+    this.isLiked();
     return this._element;
   }
 }
