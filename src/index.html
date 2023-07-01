@@ -15,7 +15,11 @@
     <main class="content">
       <section class="profile">
         <div class="profile__descrition">
-        <div class="profile__image"></div>
+          <div class="profile__image">
+          <div class="profile__cover">
+            <button class="profile__avatar-edit-button profile__avatar-edit-button_popup_opened" type="button"></button>
+          </div>
+          </div>
         <div class="profile__text">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <h2 class="profile__subtitle">Исследователь океана</h2>
@@ -33,19 +37,21 @@
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
   </div>
+
   <div class="popup popup_type_profile-edit">
     <div class="popup__container">
       <button class="popup__close-btn" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form popup__form_type_profile" name="profile-form" novalidate>
-        <input  id="name-input" type="text" class="popup__input popup__input_el_name" placeholder="Имя" name="userName" required minlength="2" maxlength="40">
+        <input  id="name-input" type="text" class="popup__input popup__input_el_name" placeholder="Имя" name="name" required minlength="2" maxlength="40">
         <span class="popup__input-error name-input-error"></span>
-        <input  id="job-input" type="text" class="popup__input popup__input_el_job" placeholder="Род деятельности" name="userDescription" required minlength="2" maxlength="200">
+        <input  id="job-input" type="text" class="popup__input popup__input_el_job" placeholder="Род деятельности" name="about" required minlength="2" maxlength="200">
         <span class="popup__input-error job-input-error"></span>
         <button class="popup__save-btn popup__profile-btn" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
+
   <div class="popup popup_type_add-card">
     <div class="popup__container">
       <button class="popup__close-btn" type="button"></button>
@@ -59,6 +65,19 @@
       </form>
     </div>
   </div>
+
+  <div class="popup popup_type_update-avatar">
+    <div class="popup__container">
+      <button class="popup__close-btn" type="button"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form popup__form_type_avatar" name="avatar-form" novalidate>
+        <input  id="avatar-input" type="url" class="popup__input popup__input_el_avatar" placeholder="Ссылка на аватар" name="avatar" required>
+        <span class="popup__input-error avatar-input-error"></span>
+        <button class="popup__save-btn popup__avatar-btn" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
   <div class="popup popup_type_view-image">
     <div class="popup__image-container">
       <button class="popup__close-btn" type="button"></button>
@@ -66,6 +85,19 @@
       <p class="popup__photo-title"></p>
     </div>
   </div>
+
+  <div class="popup popup_type_delete-confirmation">
+    <div class="popup__container">
+      <button class="popup__close-btn" type="button"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form class="popup__form popup__form_confirm" name="delete-form" novalidate>
+        <button class="popup__save-btn popup__confirm-btn" type="submit">Да</button>
+      </form>
+    </div>
+  </div>
+
+
+
   </div>
   
   <template id="photo-template">
@@ -74,7 +106,10 @@
       <img class="element__image" src="#" alt="">
       <div class="element__text">
         <h2 class="element__title"></h2>
-        <button class="element__icon" type="button"></button>
+        <div class="element__likes">
+         <button class="element__icon" type="button"></button>
+         <p class="element__likes-counter">0</p>
+        </div>  
       </div>
     </li>
   </template>
